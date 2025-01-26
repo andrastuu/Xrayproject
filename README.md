@@ -35,10 +35,7 @@ Medical applications of computer vision include:
 
 ### **3. Baseline Model**
 - **Architecture**:
-  - 4 convolutional layers with ReLU activation.
-  - Max pooling after every 2 convolutional layers.
-  - 2 dense layers (32 neurons each) with ReLU activation.
-  - Final dense layer (4 neurons) with softmax for classification.
+  ![Baseline Architecture](images/baseline architecture.png)
 
 - **Training**:
   - Loss: Categorical Cross-Entropy
@@ -49,13 +46,27 @@ Medical applications of computer vision include:
   - **Validation Accuracy**: 78.1%
   - **Test Accuracy**: 76.4%
 
-**Key Issues**:
-- Overfitting on training data.
-- Poor performance on the COVID-19 class due to limited data.
+- **Validation Confusion Matrix**:
+  ![Baseline Validation Confusion Matrix](baseline%20matrix%20val.png)
+
+- **Test Confusion Matrix**:
+  ![Baseline Test Confusion Matrix](baseline%20matrix%20test.png)
+
+- **Training History**:
+  ![Baseline Training History](baseline%20training.png)
+
+- **ROC Curves**:
+  - **Validation ROC Curve**:
+    ![Baseline Validation ROC Curve](baseline%20roc%20val.png)
+  - **Test ROC Curve**:
+    ![Baseline Test ROC Curve](baseline%20roc%20test.png)
 
 ---
 
 ### **4. Fine-Tuned Model**
+- **Architecture**:
+  ![Tuned Architecture](tuned%20architecture.png)
+
 - **Improvements**:
   - Data augmentation: Rotation, zoom, and vertical flipping.
   - Increased convolutional layers (6) and filters (32 to 256).
@@ -66,9 +77,20 @@ Medical applications of computer vision include:
   - **Validation Accuracy**: 81.5%
   - **Test Accuracy**: 81.9%
 
-**Key Improvements**:
-- Reduced overfitting and improved generalization.
-- Misclassification of COVID-19 and similar classes remained a challenge.
+- **Validation Confusion Matrix**:
+  ![Tuned Validation Confusion Matrix](tuned%20matrix%20val.png)
+
+- **Test Confusion Matrix**:
+  ![Tuned Test Confusion Matrix](tuned%20matrix%20test.png)
+
+- **Training History**:
+  ![Tuned Training History](tuned%20training.png)
+
+- **ROC Curves**:
+  - **Validation ROC Curve**:
+    ![Tuned Validation ROC Curve](tuned%20roc%20val.png)
+  - **Test ROC Curve**:
+    ![Tuned Test ROC Curve](tuned%20roc%20test.png)
 
 ---
 
@@ -82,9 +104,6 @@ Medical applications of computer vision include:
 
 - **Performance**:
   - **Validation and Test Accuracy**: Similar to the fine-tuned model.
-
-**Limitation**:
-- Computational constraints limited further optimization.
 
 ---
 
