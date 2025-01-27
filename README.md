@@ -1,128 +1,131 @@
-# Multi-Class Classification on the COVID-19 Chest X-Ray Dataset
+# Using Deep Learning to Perform Multi-Class Classification on the COVID-19 Chest X-ray Dataset
 
 ---
 
-### **1. Problem Definition**
-The project leverages computer vision and deep learning techniques to classify chest X-rays into four categories:  
-- **Viral Pneumonia**  
-- **COVID-19**  
-- **Bacterial Pneumonia**  
-- **Healthy**  
+## **1. Problem Definition**
 
-Medical applications of computer vision include:
-- More accurate diagnoses and early identification of high-risk cases.
-- Reduced manual workload for healthcare providers.
-- Automation of medical image analysis to save time and resources.
+Computer vision is crucial in medical data analysis as it provides:
+- **Accurate Diagnoses:** Automated identification of abnormalities.
+- **Efficiency:** Reduced time and cost of manual processes.
+- **Trend Identification:** Pattern recognition in large datasets, aiding prevention and treatment decisions.
+
+For example, MediPredict uses deep learning to predict disease risks based on medical data ([MediPredict](https://medipredict.com)).
 
 ---
 
-### **2. Dataset and Preprocessing**
-- **Dataset Overview**:
-  - **Total Images**: 6,392
-  - **Classes**:
-    - Bacterial Pneumonia: 2,816 images
-    - COVID-19: 127 images
-    - Healthy: 1,606 images
-    - Viral Pneumonia: 1,843 images
-  - **Image Dimensions**: 156 x 156
+## **2. Dataset Preprocessing**
 
-- **Preprocessing Steps**:
-  - One-hot encoding for categorical representation.
-  - Stratified data split: **64% training, 16% validation, 20% testing**.
-  - Normalization to reduce noise and improve model performance.
+### Dataset Overview:
+- **Total Images:** 6,392
+- **Classes:**
+  - Bacterial Pneumonia: 2,816
+  - COVID-19: 127
+  - Healthy: 1,606
+  - Viral Pneumonia: 1,843
+- **Image Dimensions:** 156 x 156 pixels
 
----
-
-### **3. Baseline Model**
-- **Architecture**:
-  ![Baseline Architecture](images/baseline architecture.png)
-
-- **Training**:
-  - Loss: Categorical Cross-Entropy
-  - Optimizer: Adam
-  - Checkpoints to save best-performing weights.
-
-- **Performance**:
-  - **Validation Accuracy**: 78.1%
-  - **Test Accuracy**: 76.4%
-
-- **Validation Confusion Matrix**:
-  ![Baseline Validation Confusion Matrix](baseline%20matrix%20val.png)
-
-- **Test Confusion Matrix**:
-  ![Baseline Test Confusion Matrix](baseline%20matrix%20test.png)
-
-- **Training History**:
-  ![Baseline Training History](baseline%20training.png)
-
-- **ROC Curves**:
-  - **Validation ROC Curve**:
-    ![Baseline Validation ROC Curve](baseline%20roc%20val.png)
-  - **Test ROC Curve**:
-    ![Baseline Test ROC Curve](baseline%20roc%20test.png)
+### Preprocessing Steps:
+1. **One-Hot Encoding:** Efficient representation of categorical data.
+2. **Data Splitting:** Stratified splits:
+   - **Training Set:** 4,090 images
+   - **Validation Set:** 1,023 images
+   - **Test Set:** 1,279 images
+3. **Normalization:** Reduces noise and improves model accuracy.
 
 ---
 
-### **4. Fine-Tuned Model**
-- **Architecture**:
-  ![Tuned Architecture](tuned%20architecture.png)
+## **3. Baseline Model**
 
-- **Improvements**:
-  - Data augmentation: Rotation, zoom, and vertical flipping.
-  - Increased convolutional layers (6) and filters (32 to 256).
-  - Added dropout layers (0.2 rate) and L2 regularization.
-  - Early stopping based on validation accuracy.
+### Architecture:
+The baseline model consists of:
+- 4 Convolutional layers with ReLU activation.
+- Max Pooling layers to reduce dimensionality.
+- 2 Dense layers (32 neurons each).
+- A Softmax output layer for classification.
 
-- **Performance**:
-  - **Validation Accuracy**: 81.5%
-  - **Test Accuracy**: 81.9%
 
-- **Validation Confusion Matrix**:
-  ![Tuned Validation Confusion Matrix](tuned%20matrix%20val.png)
 
-- **Test Confusion Matrix**:
-  ![Tuned Test Confusion Matrix](tuned%20matrix%20test.png)
+### Performance:
+- **Validation Accuracy:** 78.1%
+- **Test Accuracy:** 76.4%
 
-- **Training History**:
-  ![Tuned Training History](tuned%20training.png)
+<div align="center">
+  <img src="images/baseline%20metrics.png" alt="Baseline Metrics" width="48%">
+</div>
 
-- **ROC Curves**:
-  - **Validation ROC Curve**:
-    ![Tuned Validation ROC Curve](tuned%20roc%20val.png)
-  - **Test ROC Curve**:
-    ![Tuned Test ROC Curve](tuned%20roc%20test.png)
+### Metrics and Confusion Matrices:
+<div align="center">
+  <img src="images/baseline%20matrix%20val.png" alt="Baseline Validation Confusion Matrix" width="48%">
+  <img src="images/baseline%20matrix%20test.png" alt="Baseline Test Confusion Matrix" width="48%">
+</div>
+
 
 ---
 
-### **5. Transfer Learning**
-- **Models Used**:
-  - ResNet50 and VGG16 (VGG16 outperformed ResNet50).
+## **4. Improved (Fine-Tuned) Model**
 
-- **Approach**:
-  - Fine-tuned pre-trained weights.
-  - Added 2 dense layers (64 neurons), dropout, and regularization.
+### Improvements:
+1. **Data Augmentation:** 
+   - Rotation (0.3), zooming (0.1), and vertical flipping.
+2. **Architecture Enhancements:**
+   - Increased convolutional layers (6 total).
+   - Dropout layers (rate: 0.2) and L2 regularization.
+   - Early stopping to prevent overfitting.
+3. **Hyperparameter Tuning:** 
+   - Batch size: 32
+   - Learning rate: 0.0001
 
-- **Performance**:
-  - **Validation and Test Accuracy**: Similar to the fine-tuned model.
+### Performance:
+- **Validation Accuracy:** 81.5%
+- **Test Accuracy:** 81.9%
+
+<div align="center">
+  <img src="images/tuned%20metrics.png" alt="Tuned Metrics" width="48%">
+</div>
+
+### Metrics and Confusion Matrices:
+<div align="center">
+
+  <img src="images/tuned%20matrix%20val.png" alt="Tuned Validation Confusion Matrix" width="48%">
+    <img src="images/tuned%20matrix%20test.png" alt="Tuned Test Confusion Matrix" width="48%">
+</div>
+
+<div align="center">
+
+</div>
+
 
 ---
 
-### **6. Discussion**
-- The models successfully leveraged deep learning for multi-class classification, achieving reasonable accuracy despite challenges like overfitting and limited COVID-19 data.
-- Fine-tuning and transfer learning showed promising results, but further optimizations (e.g., hyperparameter tuning) could improve performance.
-- The project was constrained by limited computational resources, which hindered exhaustive experimentation.
+## **5. Transfer Learning Model**
+
+### Approach:
+- Utilized **VGG16** and **ResNet50** architectures.
+- VGG16 performed better after modifications:
+  - Dropout layers: 0.2
+  - L2 regularization
+  - Adam optimizer with a learning rate of 0.01.
+- Similar augmentation techniques were applied.
+
+### Performance:
+- Results were comparable to the fine-tuned model.
 
 ---
 
-### **7. Key Learnings**
-This project highlighted:
-- The potential of deep learning in medical imaging.
-- The importance of robust preprocessing techniques.
-- The challenges of class imbalance and overfitting.
-- The need for more computational power for advanced model tuning.
+## **6. Discussion**
+
+### Key Findings:
+- The models achieved reasonable accuracy despite data limitations.
+- Augmentation and fine-tuning helped reduce overfitting.
+- COVID-19 classification accuracy remained low due to class imbalance.
+
+### Limitations:
+- Computational resources limited hyperparameter tuning.
+- Additional experiments with Keras Tuner or other optimizers could improve results.
 
 ---
 
-### **8. References**
+## **7. References**
+
 1. Ahmed F., Bukhari S.A.C., Keshtkar F. (2021). *A deep learning approach for COVID-19 viral pneumonia screening with X-Ray images*. DOI: 10.1145/3431804.
 2. Meedeniya D. et al. (2022). *Chest X-ray analysis empowered with deep learning: A systematic review*. DOI: 10.1016/j.asoc.2022.109319.
